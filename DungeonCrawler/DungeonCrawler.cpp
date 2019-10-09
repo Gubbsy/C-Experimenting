@@ -2,18 +2,16 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <conio.h>
 
 using namespace std;
 
 //char mapArray[10][31];
-vector<vector<char> >mapArray;
-int currentRow,currentCol;
-bool gameOver = false;
-int gold = 0;
+
 
 
 // load map into array
-void LoadMap()
+void LoadMap(vector<vector<char> >& mapArray, int& currentRow, int& currentCol)
 {
 	string line;
 	ifstream mapFile("Map.txt");
@@ -36,7 +34,7 @@ void LoadMap()
 }
 
 // print map
-void PrintMap() 
+void PrintMap(vector<vector<char> >& mapArray)
 {
 	system("CLS");
 	for(int row = 0; row < 10; row++) {
@@ -47,7 +45,7 @@ void PrintMap()
 	}
 }
 
-void Move(int newRow, int newCol) 
+void Move(vector<vector<char> >& mapArray, int& gold, int& currentRow, int& currentCol, int& newRow, int& newCol, bool& gameOver) 
 {
 	char newTileType = mapArray[newRow][newCol];
 	char currentTileType = mapArray[currentRow][currentCol];
@@ -64,7 +62,7 @@ void Move(int newRow, int newCol)
 			gold++;
 		}
 
-		PrintMap();
+		PrintMap(mapArray);
 
 		if (newTileType == 'E')
 		{
@@ -77,49 +75,49 @@ void Move(int newRow, int newCol)
 			gameOver = true;
 		}
 	}
-	else
-	{
-		cout << "You cannot walk through walls" << endl;
-	}
 }
 
 int main()
 {
-	LoadMap();
-	PrintMap();
+	vector<vector<char> >mapArray;
+	int currentRow, currentCol, newRow, newCol;
+	bool gameOver = false;
+	int gold = 0;
+	LoadMap(mapArray, currentRow, currentCol);
+	PrintMap(mapArray);
+	cout << "Please enter your move with W,A,S,D" << endl;
 
 	while (!gameOver){
 		char direction;
-		cout << "Please enter your move with W,A,S,D" << endl;
-		cin >> direction;
+		direction = _getch();
 		direction = toupper(direction);
 
 		if (direction == 'W') {
 			// move up
-			int newRow = currentRow - 1;
-			int newCol = currentCol;
-			Move(newRow, newCol);
+			newRow = currentRow - 1;
+			newCol = currentCol;
+			Move(mapArray, gold, currentRow, currentCol, newRow, newCol, gameOver);
 		}
 		else if (direction == 'A')
 		{
 			//move left
-			int newRow = currentRow;
-			int newCol = currentCol - 1;
-			Move(newRow, newCol);
+			newRow = currentRow;
+			newCol = currentCol - 1;
+			Move(mapArray, gold, currentRow, currentCol, newRow, newCol, gameOver);
 		}
 		else if (direction == 'S')
 		{
 			//move down
-			int newRow = currentRow + 1;
-			int newCol = currentCol;
-			Move(newRow, newCol);
+			newRow = currentRow + 1;
+			newCol = currentCol;
+			Move(mapArray, gold, currentRow, currentCol, newRow, newCol, gameOver);
 		}
 		else if (direction == 'D')
 		{
 			//move right
-			int newRow = currentRow;
-			int newCol = currentCol + 1;
-			Move(newRow, newCol);
+			newRow = currentRow;
+			newCol = currentCol + 1;
+			Move(mapArray, gold, currentRow, currentCol, newRow, newCol, gameOver);
 		}
 		else
 		{

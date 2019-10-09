@@ -1,3 +1,3 @@
 ﻿  DungeonCrawler.cpp
-E:\Users\adamj\Repositories\University\SOFT356\C-Experimenting\DungeonCrawler\DungeonCrawler.cpp(24,22): warning C4018: '<': signed/unsigned mismatch
+E:\Users\adamj\Repositories\University\SOFT356\C-Experimenting\DungeonCrawler\DungeonCrawler.cpp(22,22): warning C4018: '<': signed/unsigned mismatch
   DungeonCrawler.vcxproj -> E:\Users\adamj\Repositories\University\SOFT356\C-Experimenting\DungeonCrawler\Debug\DungeonCrawler.exe
